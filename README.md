@@ -57,6 +57,23 @@ cd kafka-connect-cdc-example & ./run.sh
 
 ```
 
+## Table with CDC enabled
+```
+docker-compose -f docker-compose.yml exec sqlserver bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P $MSSQL_SA_PASSWORD -Q "select * from kafkaconnect.dbo.teste"'
+
+```
+
+## Inserting test data to see the replication
+
+```
+docker-compose -f docker-compose.yml exec sqlserver bash -c \
+'/opt/mssql-tools/bin/sqlcmd -U sa -P $MSSQL_SA_PASSWORD -Q "insert into kafkaconnect.dbo.teste(numero, numerogrande, dinheiro, decimo, numeral) values (1,2,3,4,5)"'
+
+```
+
+
+
+
 ## Reference
 
 [Mongo DB Kafka] (https://github.com/mongodb/mongo-kafka)
