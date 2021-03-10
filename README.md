@@ -1,14 +1,14 @@
-# Simple Demonstration of CDC using Kafka Connect
+# Example of CDC using Kafka Connect
 
-This project is a simple implementation of a CDC for SQLServer using Kafka Connect and MongoDB as sink
+This project is a example implementation of a CDC for SQLServer using Kafka Connect and MongoDB as sink.
 
-It's structured using Docker containers and docker-compose orquestrator.
+It's structured using Docker containers and docker-compose orquestrator tool.
 
 ## Requirements
 - [docker-compose] (https://docs.docker.com/compose/install/)
 - [docker] (https://docs.docker.com/get-docker/)
 
-## Kafka Web Interfaces
+## Kafka Web Interfaces 
 - [Landoop] UI (http://localhost:3030)
 
 ## Kafka REST Apis
