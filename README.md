@@ -53,7 +53,7 @@ docker-compose -f docker-compose.yml exec sqlserver bash -c '/opt/mssql-tools/bi
 ## How to run the project
 
 ```
-cd kafka-connect-cdc-example & ./run.sh
+cd kafka-connect-cdc-example && ./run.sh
 
 ```
 
