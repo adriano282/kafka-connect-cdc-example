@@ -16,7 +16,7 @@ It's structured using Docker containers and docker-compose orquestrator.
 - [Kafka REST] (http://localhost:8082)
 - [Kafka Connect] (http://localhost:8083)
 
-## Internal Compoenents
+## Internal Components
 - [Kafka Broker] 
    internal host: kafka-systems
    internal port: 9092
