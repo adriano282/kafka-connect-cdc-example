@@ -1,4 +1,4 @@
-# POC KafkaConnect: SQL Server Source Connector  => Kafka => MongoDB Sink Connector
+# Simple Demonstration of CDC using Kafka Connect
 
 This project is simple implementation of a CDC for SQLServer using Kafka Connect and MongoDB as sink
 
