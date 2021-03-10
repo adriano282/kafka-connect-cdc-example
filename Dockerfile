@@ -13,4 +13,4 @@ ENTRYPOINT ["./entrypoint.sh"]
 
 CMD ["tail -f /dev/null"]
 
-HEALTHCHECK --interval=15s CMD /opt/mssql -U sa -P $MSSQL_SA_PASSWORD -Q "select 1" && grep -q "MSSQL CONFIG COMPLETE" ./config.log
+HEALTHCHECK --interval=15s CMD /opt/mssql-tools/bin/sqlcmdl -U sa -P $MSSQL_SA_PASSWORD -Q "select 1" && grep -q "MSSQL CONFIG COMPLETE" ./config.log
