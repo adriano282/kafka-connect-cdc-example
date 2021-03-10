@@ -18,27 +18,8 @@ It's structured using Docker containers and docker-compose orquestrator tool.
 
 ## Internal Components
 - [Kafka Broker] 
-   internal host: kafka-systems
-   internal port: 9092
-
-- [MongoDB]
-   
-  replica1
-  * internal host: mongo1
-  * internal port: 27017
-
-  replica2 (commented)
-  * internal host: mongo2
-  * internal port: 27017
-
-  replica3 (commented)
-  - internal host: mongo2
-  - internal port: 27017
-
+- [MongoDB]   
 - [SQLServer]
-
-  internal host: sqlserver
-  internal port: 1433
 
 ## Database Interfaces
 
