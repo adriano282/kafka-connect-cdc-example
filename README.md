@@ -40,13 +40,17 @@ It's structured using Docker containers and docker-compose orquestrator.
 
 - [MongoDB] (http://localhost:8011)
 - SQLServer
-  ```docker-compose -f docker-compose.yml exec sqlserver bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P $MSSQL_SA_PASSWORD -d kafkaconnect'
+
+```
+docker-compose -f docker-compose.yml exec sqlserver bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P $MSSQL_SA_PASSWORD -d kafkaconnect'
+
 ```
 
 ## How to run the project
 
-```bash
-./run.sh
+```
+cd kafka-connect-cdc-example & ./run.sh
+
 ```
 
 ## Reference
