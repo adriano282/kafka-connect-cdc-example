@@ -4,6 +4,10 @@ This project is a simple implementation of a CDC for SQLServer using Kafka Conne
 
 It's structured using Docker containers and docker-compose orquestrator.
 
+## Requirements
+- [docker-compose] (https://docs.docker.com/compose/install/)
+- [docker] (https://docs.docker.com/get-docker/)
+
 ## Kafka Web Interfaces
 - [Landoop] UI (http://localhost:3030)
 
