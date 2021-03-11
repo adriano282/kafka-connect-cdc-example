@@ -4,7 +4,7 @@ This project is a example implementation of a CDC for SQLServer using Kafka Conn
 
 The Kafka Connect was configured in Standalone Mode. (Used only for Development Purposes not for Production Envirornment).
 
-The MSSql Server Source connector used is from Debeziums(https://debezium.io/). 
+The MSSql Server Source connector used is from Debezium (https://debezium.io/). 
 The MongoDB Sink is from MongoDB (https://docs.mongodb.com/kafka-connector/current/).
 
 It's structured using Docker containers and docker-compose orquestrator tool.
