@@ -9,7 +9,7 @@ GO
 
 
 -- ===================
--- After insertion
+-- Do the insertions
 -- ================== 
 insert into teste (numero, numerogrande, dinheiro, decimo, numeral) 
 values (100.000000, 100.000000, 100.000000, 100.000000, 100)
@@ -23,7 +23,9 @@ insert into teste (numero, numerogrande, dinheiro, decimo, numeral)
 values (300.000000, 300.000000, 300.000000, 300.000000, 300.000000)
 GO
 
-
+-- ===================
+-- After insertion
+-- ================== 
 select * from teste
 GO
 

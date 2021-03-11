@@ -22,7 +22,7 @@ GO
 EXEC sys.sp_cdc_enable_db
 GO
 -- =========
--- Enable a Table Specifying Filegroup Option Template
+-- Enable CDC to the Table
 -- =========
 EXEC sys.sp_cdc_enable_table
 @source_schema = N'dbo',
