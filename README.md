@@ -4,7 +4,8 @@ This project is a example implementation of a CDC for SQLServer using Kafka Conn
 
 It's structured using Docker containers and docker-compose orquestrator tool.
 
-The Kafka Connect was configured in Standalone Mode. (Used only for Development Purposes not for Production Envirornment).
+The base docker image used to create the Kafka cluster and related systems is landoop/fast-data-dev (https://github.com/lensesio/fast-data-dev).
+It creates the Kafka Broker, Zookeeper, Schema Registry, REST Proxy and Kafka Connect Distributed.
 
 The MSSql Server Source connector used is from Debezium (https://debezium.io/). 
 The MongoDB Sink is from MongoDB (https://docs.mongodb.com/kafka-connector/current/).
