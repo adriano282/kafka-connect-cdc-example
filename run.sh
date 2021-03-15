@@ -24,7 +24,7 @@ function test_systems_available {
   COUNTER=0
   until $(curl --output /dev/null --silent --head --fail http://localhost:$1); do
       printf '.'
-      sleep 4
+      sleep 5
       let COUNTER+=1
       if [[ $COUNTER -gt 50 ]]; then
         MSG="\nWARNING: Could not reach configured kafka system on http://localhost:$1 \nNote: This script requires curl.\n"
@@ -87,9 +87,12 @@ curl -X POST -H "Content-Type: application/json" --data '
   "value.converter": "io.confluent.connect.avro.AvroConverter",
   "key.converter": "io.confluent.connect.avro.AvroConverter",
   "key.converter.schema.registry.url": "http://localhost:8081",
+  "transforms": "extractValue",
+  "transforms.extractValue.type":"org.apache.kafka.connect.transforms.ExtractField$Value",
+  "transforms.extractValue.field":"after",
 
   "document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.PartialValueStrategy",
-  "value.projection.list": "after.numero",
+  "value.projection.list": "numero",
   "value.projection.type": "whitelist",
   "writemodel.strategy": "com.mongodb.kafka.connect.sink.writemodel.strategy.UpdateOneTimestampsStrategy"
 
@@ -102,6 +105,7 @@ echo -e "\nCreating MSServer Source Connector:"
 curl -X POST -H "Content-Type: application/json" --data '
 {  "name": "msserver-source",
       "config": {
+ "tasks.max":"1",
 "connector.class":"io.debezium.connector.sqlserver.SqlServerConnector",
 "database.server.name":"sqlserver",
 "database.dbname":"kafkaconnect",
