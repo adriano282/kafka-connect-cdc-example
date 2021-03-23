@@ -17,8 +17,7 @@ CREATE TABLE dbo.teste (
   data1 datetime,
   data2 datetime2,
   data3 smalldatetime,
-  data4 date,
-  data5 timestamp
+  data4 date
 )
 GO
 -- ====
