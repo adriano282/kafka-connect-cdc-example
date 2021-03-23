@@ -85,25 +85,20 @@ curl -X POST -H "Content-Type: application/json" --data '
         "key.converter": "io.confluent.connect.avro.AvroConverter",
         "key.converter.schema.registry.url": "http://localhost:8081",
 	
-## ---- Normalizaiton of Data in SQL table like structure
         "transforms": "extractValue",
         "transforms.extractValue.type":"org.apache.kafka.connect.transforms.ExtractField$Value",
         "transforms.extractValue.field":"after",
-## ---- ------------------------------------------------
 	
-## ---- Idempotency for composite PK -----
 	"document.id.strategy":"com.mongodb.kafka.connect.sink.processor.id.strategy.PartialValueStrategy",
 	"document.id.strategy.partial.value.projection.list":"numero,numerogrande,decimal,numeral",
 	"document.id.strategy.partial.value.projection.type":"AllowList",
 	"writemodel.strategy":"com.mongodb.kafka.connect.sink.writemodel.strategy.ReplaceOneBusinessKeyStrategy"
-## ----------------------------------------
 
 }}' http://localhost:8083/connectors -w "\n"
 
 sleep 5
 
 echo -e "\nCreating MSServer Source Connector:"
-## More info about MSServer Source properties at https://debezium.io/documentation/reference/1.0/connectors/sqlserver.html
 curl -X POST -H "Content-Type: application/json" --data '
 {  "name": "msserver-source",
       "config": {
@@ -124,7 +119,6 @@ curl -X POST -H "Content-Type: application/json" --data '
 	"database.history.kafka.bootstrap.servers":"127.0.0.1:9092",
 	"database.history.kafka.topic":"numbers-topic",
 	"table.whitelist":"dbo.teste",
-## ---------- To Configure SQL Server Date data types to Kafka Connect Date Types	
 	"time.precision.mode":"connect"
 
 }}' http://localhost:8083/connectors -w "\n"
