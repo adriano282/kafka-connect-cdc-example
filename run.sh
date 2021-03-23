@@ -74,27 +74,29 @@ curl -X POST -H "Content-Type: application/json" --data '
         "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
         "tasks.max":"1",
         "topics":"sqlserver.dbo.teste",
-	 "connection.uri":"mongodb://mongo1:27017,mongo2:27017,mongo3:27017",
-        "upsert":"true",
+	"connection.uri":"mongodb://mongo1:27017,mongo2:27017,mongo3:27017",
         "database":"sink",
-     "collection":"numeros",
-    "delete.on.null.values": "false",
+        "collection":"numeros",
 
-  "value.converter.schemas.enable": true,
-   "key.converter.schemas.enable": true,
-
-  "value.converter.schema.registry.url": "http://localhost:8081",
-  "value.converter": "io.confluent.connect.avro.AvroConverter",
-  "key.converter": "io.confluent.connect.avro.AvroConverter",
-  "key.converter.schema.registry.url": "http://localhost:8081",
-  "transforms": "extractValue",
-  "transforms.extractValue.type":"org.apache.kafka.connect.transforms.ExtractField$Value",
-  "transforms.extractValue.field":"after",
-
-  "document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.PartialValueStrategy",
-  "value.projection.list": "numero",
-  "value.projection.type": "whitelist",
-  "writemodel.strategy": "com.mongodb.kafka.connect.sink.writemodel.strategy.UpdateOneTimestampsStrategy"
+        "value.converter.schemas.enable": true,
+        "key.converter.schemas.enable": true,
+        "value.converter.schema.registry.url": "http://localhost:8081",
+        "value.converter": "io.confluent.connect.avro.AvroConverter",
+        "key.converter": "io.confluent.connect.avro.AvroConverter",
+        "key.converter.schema.registry.url": "http://localhost:8081",
+	
+## ---- Normalizaiton of Data in SQL table like structure
+        "transforms": "extractValue",
+        "transforms.extractValue.type":"org.apache.kafka.connect.transforms.ExtractField$Value",
+        "transforms.extractValue.field":"after",
+## ---- ------------------------------------------------
+	
+## ---- Idempotency for composite PK -----
+	"document.id.strategy":"com.mongodb.kafka.connect.sink.processor.id.strategy.PartialValueStrategy",
+	"document.id.strategy.partial.value.projection.list":"numero,numerogrande,decimal,numeral",
+	"document.id.strategy.partial.value.projection.type":"AllowList",
+	"writemodel.strategy":"com.mongodb.kafka.connect.sink.writemodel.strategy.ReplaceOneBusinessKeyStrategy"
+## ----------------------------------------
 
 }}' http://localhost:8083/connectors -w "\n"
 
@@ -105,25 +107,25 @@ echo -e "\nCreating MSServer Source Connector:"
 curl -X POST -H "Content-Type: application/json" --data '
 {  "name": "msserver-source",
       "config": {
- "tasks.max":"1",
-"connector.class":"io.debezium.connector.sqlserver.SqlServerConnector",
-"database.server.name":"sqlserver",
-"database.dbname":"kafkaconnect",
-"database.hostname":"sqlserver",
-"database.port":"1433",
-"database.user":"sa",
-"database.password":"Testing1122",
-"snapshot.mode":"initial",
-"key.converter":"io.confluent.connect.avro.AvroConverter",
-"key.converter.schema.registry.url":"http://localhost:8081",
-"key.converter.schemas.enable": "true",
-"value.converter":"io.confluent.connect.avro.AvroConverter",
-"value.converter.schema.registry.url":"http://localhost:8081",
-"value.converter.schemas.enable": "true",
-"database.history.kafka.bootstrap.servers":"127.0.0.1:9092",
-"database.history.kafka.topic":"numbers-topic",
-"table.whitelist":"dbo.teste",
-"decimal.handling.mode":"precise"
+       	"tasks.max":"1",
+	"connector.class":"io.debezium.connector.sqlserver.SqlServerConnector",
+	"database.server.name":"sqlserver",
+	"database.dbname":"kafkaconnect",
+	"database.hostname":"sqlserver",
+	"database.port":"1433",
+	"database.user":"sa",
+	"database.password":"Testing1122",
+	"key.converter":"io.confluent.connect.avro.AvroConverter",
+	"key.converter.schema.registry.url":"http://localhost:8081",
+	"key.converter.schemas.enable": "true",
+	"value.converter":"io.confluent.connect.avro.AvroConverter",
+	"value.converter.schema.registry.url":"http://localhost:8081",
+	"value.converter.schemas.enable": "true",
+	"database.history.kafka.bootstrap.servers":"127.0.0.1:9092",
+	"database.history.kafka.topic":"numbers-topic",
+	"table.whitelist":"dbo.teste",
+## ---------- To Configure SQL Server Date data types to Kafka Connect Date Types	
+	"time.precision.mode":"connect"
 
 }}' http://localhost:8083/connectors -w "\n"
 
@@ -139,7 +141,7 @@ Examine de Mongo Collections in the Mongo Express: http://localhost:8011
 
 Insert Data in SQL Server Teste Table:  
       
-      docker-compose -f docker-compose.yml exec sqlserver bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P $MSSQL_SA_PASSWORD -d kafkaconnect'
+      docker-compose -f docker-compose.yml exec sqlserver bash -c '/opt/mssql-tools/bin/sqlcmd -U sa -P \$MSSQL_SA_PASSWORD -d kafkaconnect'
 ==============================================================================================================
 
 Use <ctrl>-c to quit'''
