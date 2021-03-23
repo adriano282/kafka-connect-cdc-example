@@ -11,9 +11,14 @@ GO
 CREATE TABLE dbo.teste (
   numero INT PRIMARY KEY,
   numerogrande BIGINT,
-  dinheiro MONEY,
-  decimo DECIMAL(5,2),
-  numeral NUMERIC(5,2)
+  dinheiro DECIMAL(20,18),
+  decimo DECIMAL(20,18),
+  numeral NUMERIC(5,2),
+  data1 datetime,
+  data2 datetime2,
+  data3 smalldatetime,
+  data4 date,
+  data5 timestamp
 )
 GO
 -- ====
